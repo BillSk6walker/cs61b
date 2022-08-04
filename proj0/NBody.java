@@ -24,19 +24,46 @@ public class NBody {
         }
         return planets;
     }
+
     public static void main(String[] args) {
-        double T=Double.parseDouble(args[0]);
-        double dt=Double.parseDouble(args[1]);
-        String filename=args[2];
-        double universe_radius=readRadius(filename);
-        Planet[] planets=readPlanets(filename);
-        String background_img="images/starfield.jpg";
-        StdDraw.setScale(-4e+11, 4e+11);
-        StdDraw.picture(-universe_radius, universe_radius,background_img);//put the background in the middle
-        StdDraw.show();//show the background
-        for(Planet p:planets){
+        double T = Double.parseDouble(args[0]);
+        double dt = Double.parseDouble(args[1]);
+        String filename = args[2];
+        double universe_radius = readRadius(filename);
+        Planet[] planets = readPlanets(filename);
+        String background_img = "images/starfield.jpg";
+        StdDraw.setScale(-universe_radius, universe_radius);
+        StdDraw.picture(0, 0, background_img);// put the background in the middle
+        StdDraw.show();// show the background
+        for (Planet p : planets) {
             p.draw();
         }
-
+        StdDraw.enableDoubleBuffering();// to prevent flickering in animation
+        double time = 0;// remember the whole time this has been running
+        while (time < T) {
+            double[] xforces = new double[planets.length];
+            double[] yforces = new double[planets.length];
+            for (int i = 0; i < planets.length; i++) {
+                xforces[i] = planets[i].calcNetForceExertedByX(planets);
+                yforces[i] = planets[i].calcNetForceExertedByY(planets);
+            } // calcuate all the forces abd save them
+            for (int i = 0; i < planets.length; i++) {
+                planets[i].update(dt, xforces[i], yforces[i]);// update the forces of planets
+            }
+            StdDraw.picture(0, 0, background_img);// put the background in the middle
+            for (Planet p : planets) {
+                p.draw();
+            }
+            StdDraw.show();// show the picture
+            StdDraw.pause(10);// pause the program for 10 mileseconds
+            time += dt;
+        }
+        StdOut.printf("%d\n", planets.length);
+        StdOut.printf("%.2e\n", universe_radius);
+        for (int i = 0; i < planets.length; i++) {
+            StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+                    planets[i].xxPos, planets[i].yyPos, planets[i].xxVel,
+                    planets[i].yyVel, planets[i].mass, planets[i].imgFileName);
+        }//print out the final state of the planet
     }
 }

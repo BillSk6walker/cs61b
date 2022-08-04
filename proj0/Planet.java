@@ -40,19 +40,13 @@ public class Planet {
 
     /** calculate the force exert by p on x direction */
     public double calcForceExertedByX(Planet p) {
-        double x_force = calcForceExertedBy(p) * (xxPos - p.xxPos) / calcDistance(p);
-        if (x_force < 0) {
-            x_force = -x_force;
-        }
+        double x_force = calcForceExertedBy(p) * (p.xxPos-xxPos) / calcDistance(p);
         return x_force;
     }
 
     /** calculate the force exert by p on y direction */
     public double calcForceExertedByY(Planet p) {
-        double y_force = calcForceExertedBy(p) * (yyPos - p.yyPos) / calcDistance(p);
-        if (y_force < 0) {
-            y_force = -y_force;
-        }
+        double y_force = calcForceExertedBy(p) * (p.yyPos-yyPos) / calcDistance(p);
         return y_force;
     }
 
