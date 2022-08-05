@@ -106,18 +106,24 @@ public class IntList {
         IntList ret = new IntList();
         IntList walker_ret = ret;
         IntList walker_AB;
-        if(A!=null) {
+        if (A != null) {
             walker_AB = A;
-            while (walker_AB != null) {
+            while (walker_AB.rest != null) {
                 walker_ret.first = walker_AB.first;
                 walker_ret.rest = new IntList();
                 walker_ret = walker_ret.rest;
                 walker_AB = walker_AB.rest;
             }
+            walker_ret.first = walker_AB.first;
         }
         //now all the element in A has been copied into a new IntList ret
         walker_AB = B;
-        while (walker_AB != null && walker_AB.rest != null) {
+        if (walker_AB == null) {//B is null
+            return ret;
+        }
+        walker_ret.rest = new IntList();
+        walker_ret = walker_ret.rest;
+        while (walker_AB.rest != null) {
             walker_ret.first = walker_AB.first;
             walker_ret.rest = new IntList();
             walker_ret = walker_ret.rest;
