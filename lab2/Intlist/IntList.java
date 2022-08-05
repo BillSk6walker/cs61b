@@ -121,8 +121,10 @@ public class IntList {
         if (walker_AB == null) {//B is null
             return ret;
         }
-        walker_ret.rest = new IntList();
-        walker_ret = walker_ret.rest;
+        if(A!=null) {
+            walker_ret.rest = new IntList();
+            walker_ret = walker_ret.rest;
+        }
         while (walker_AB.rest != null) {
             walker_ret.first = walker_AB.first;
             walker_ret.rest = new IntList();
