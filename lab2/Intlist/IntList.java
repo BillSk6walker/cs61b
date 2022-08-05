@@ -82,21 +82,28 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        IntList b = A;
-        while (b.rest != null) {
-            b = b.rest;
+        if (A != null) {
+            IntList b = A;
+            while (b.rest != null) {
+                b = b.rest;
+            }
+            //now b.rest is null,i.e. b is the last element of A
+            b.rest = B;
+            return A;//A's tail is catenated with B so it's what they want
         }
-        //now b.rest is null,i.e. b is the last element of A
-        b.rest = B;
-        return A;//A's tail is catenated with B so it's what they want
+        return B;//A is null just return B is fine
     }
-
     /**
      * Returns a list consisting of the elements of A followed by the
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
+        if(A==null && B==null){
+            return  null;
+        } else if (A==null) {
+            return  B;
+        }
         IntList ret = new IntList();
         IntList walker_ret = ret;
         IntList walker_AB = A;
@@ -108,7 +115,7 @@ public class IntList {
         }
         //now all the element in A has been copied into a new IntList ret
         walker_AB=B;
-        while (walker_AB.rest!=null){
+        while (walker_AB!=null && walker_AB.rest!=null){
             walker_ret.first=walker_AB.first;
             walker_ret.rest=new IntList();
             walker_ret=walker_ret.rest;
