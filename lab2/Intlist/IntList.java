@@ -93,36 +93,37 @@ public class IntList {
         }
         return B;//A is null just return B is fine
     }
+
     /**
      * Returns a list consisting of the elements of A followed by the
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        if(A==null && B==null){
-            return  null;
-        } else if (A==null) {
-            return  B;
+        if (A == null && B == null) {
+            return null;
+        } else if (A == null) {
+            return B;
         }
         IntList ret = new IntList();
         IntList walker_ret = ret;
         IntList walker_AB = A;
-        while(walker_AB != null){
-            walker_ret.first=walker_AB.first;
-            walker_ret.rest=new IntList();
-            walker_ret=walker_ret.rest;
-            walker_AB=walker_AB.rest;
+        while (walker_AB != null) {
+            walker_ret.first = walker_AB.first;
+            walker_ret.rest = new IntList();
+            walker_ret = walker_ret.rest;
+            walker_AB = walker_AB.rest;
         }
         //now all the element in A has been copied into a new IntList ret
-        walker_AB=B;
-        while (walker_AB!=null && walker_AB.rest!=null){
-            walker_ret.first=walker_AB.first;
-            walker_ret.rest=new IntList();
-            walker_ret=walker_ret.rest;
-            walker_AB=walker_AB.rest;
+        walker_AB = B;
+        while (walker_AB != null && walker_AB.rest != null) {
+            walker_ret.first = walker_AB.first;
+            walker_ret.rest = new IntList();
+            walker_ret = walker_ret.rest;
+            walker_AB = walker_AB.rest;
         }
         //now walker_AB is pointing at the last element of B
-        walker_ret.first= walker_AB.first;
+        walker_ret.first = walker_AB.first;
         return ret;
     }
 
