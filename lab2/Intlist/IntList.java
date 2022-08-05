@@ -102,17 +102,18 @@ public class IntList {
         //TODO:  fill in method
         if (A == null && B == null) {
             return null;
-        } else if (A == null) {
-            return B;
         }
         IntList ret = new IntList();
         IntList walker_ret = ret;
-        IntList walker_AB = A;
-        while (walker_AB != null) {
-            walker_ret.first = walker_AB.first;
-            walker_ret.rest = new IntList();
-            walker_ret = walker_ret.rest;
-            walker_AB = walker_AB.rest;
+        IntList walker_AB;
+        if(A!=null) {
+            walker_AB = A;
+            while (walker_AB != null) {
+                walker_ret.first = walker_AB.first;
+                walker_ret.rest = new IntList();
+                walker_ret = walker_ret.rest;
+                walker_AB = walker_AB.rest;
+            }
         }
         //now all the element in A has been copied into a new IntList ret
         walker_AB = B;
