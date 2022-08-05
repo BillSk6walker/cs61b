@@ -5,7 +5,7 @@ import java.util.Formatter;
  * with a large number of additional methods.
  *
  * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
- *         [Do not modify this file.]
+ * [Do not modify this file.]
  */
 public class IntList {
     /**
@@ -29,7 +29,7 @@ public class IntList {
      * A List with null rest, and first = 0.
      */
     public IntList() {
-    /* NOTE: public IntList () { }  would also work. */
+        /* NOTE: public IntList () { }  would also work. */
         this(0, null);
     }
 
@@ -82,7 +82,13 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList b = A;
+        while (b.rest != null) {
+            b = b.rest;
+        }
+        //now b.rest is null,i.e. b is the last element of A
+        b.rest = B;
+        return A;//A's tail is catenated with B so it's what they want
     }
 
     /**
@@ -91,22 +97,27 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList ret = new IntList();
+        IntList walker_ret = ret;
+        IntList walker_AB = A;
+        while(walker_AB != null){
+            walker_ret.first=walker_AB.first;
+            walker_ret.rest=new IntList();
+            walker_ret=walker_ret.rest;
+            walker_AB=walker_AB.rest;
+        }
+        //now all the element in A has been copied into a new IntList ret
+        walker_AB=B;
+        while (walker_AB.rest!=null){
+            walker_ret.first=walker_AB.first;
+            walker_ret.rest=new IntList();
+            walker_ret=walker_ret.rest;
+            walker_AB=walker_AB.rest;
+        }
+        //now walker_AB is pointing at the last element of B
+        walker_ret.first= walker_AB.first;
+        return ret;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
