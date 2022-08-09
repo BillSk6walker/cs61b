@@ -131,8 +131,8 @@ public class ArrayDeque<T> {
                 tailpointer = max - 1;
             }
             T ret = items[tailpointer];
-            checkResize();
             size -= 1;
+            checkResize();
             return ret;
         }
     }

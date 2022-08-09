@@ -37,28 +37,18 @@ public class LinkedListDequeTest {
     public void getTest() {
         ArrayDeque<Integer> a = new ArrayDeque<Integer>();
         a.addLast(0);//0
-        a.addFirst(1);// 1 0
-        a.removeFirst();// 0
-        a.addFirst(3);//3 0
-        a.addLast(4);//3 0 4
-        a.get(0);
-        a.addLast(6);//3 0 4 6
-        a.addFirst(7);//7 3 0 4 6
-        a.removeFirst();//3 0 4 6
-        a.addLast(9);//3 0 4 6 9
-        a.addFirst(10);//10 3 0 4 6 9
-        a.addFirst(11);//11 10 3 0 4 6 9
-        a.removeLast();//11 10 3 0 4 6
-        a.removeLast();//11 10 3 0 4
-        a.get(1);
-        a.removeLast();//11 10 3 0
-        a.addFirst(16);//16 11 10 3 0
-        a.addLast(17);//16 11 10 3 0 17
-        a.addFirst(18);//18 16 11 10 3 0 17
-        a.addFirst(19);//19 18 16 11 10 3 0 17
-        a.removeFirst();
-        a.get(4);
-        org.junit.Assert.assertEquals(17, (long) a.removeLast());
+        a.removeLast()  ;    //
+        a.addLast(2);//2
+        a.addFirst(3);//3 2
+        a.addLast(4);//3 2 4
+        a.addFirst(5);//5 3 2 4
+        a.addLast(6);//5 3 2 4 6
+        a.get(4)     ;//6
+        a.addLast(8);//5 3 2 4 6 8
+        a.addFirst(9);//9 5 3 2 4 6 8
+        a.addLast(10);//9 5 3 2 4 6 8 10
+        a.removeLast();//9 5 3 2 4 6 8
+        org.junit.Assert.assertEquals(8, (long) a.removeLast());
     }
 
     /**
