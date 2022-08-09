@@ -1,4 +1,8 @@
-/** Performs some basic linked list tests. */
+import org.junit.Test;
+
+/**
+ * Performs some basic linked list tests.
+ */
 public class LinkedListDequeTest {
 	
 	/* Utility method for printing out empty checks. */
@@ -29,14 +33,28 @@ public class LinkedListDequeTest {
 		}
 	}
 
+	@Test
+	public void getTest(){
+		ArrayDeque<Integer> a=new ArrayDeque<Integer>();
+		a.addLast(0);
+		a.addFirst(1);
+		a.addLast(2);
+		a.addFirst(3);
+		a.addFirst(4);
+		a.removeLast()     ;
+		a.addFirst(6);
+		a.addFirst(7);
+		a.isEmpty();
+		System.out.println(a.size());
+		org.junit.Assert.assertEquals(0,(long)a.get(5));
+	}
 	/** Adds a few things to the list, checking isEmpty() and size() are correct, 
 	  * finally printing the results. 
 	  *
 	  * && is the "and" operation. */
 	public static void addIsEmptySizeTest() {
 		System.out.println("Running add/isEmpty/Size test.");
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-		/*
+		//System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
 		boolean passed = checkEmpty(true, lld1.isEmpty());
@@ -58,7 +76,7 @@ public class LinkedListDequeTest {
 		lld1.printDeque();
 
 		printTestStatus(passed);
-		*/
+
 	}
 
 	/** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
@@ -66,8 +84,7 @@ public class LinkedListDequeTest {
 
 		System.out.println("Running add/remove test.");
 
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-		/*
+		//System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 		// should be empty 
 		boolean passed = checkEmpty(true, lld1.isEmpty());
@@ -81,7 +98,6 @@ public class LinkedListDequeTest {
 		passed = checkEmpty(true, lld1.isEmpty()) && passed;
 
 		printTestStatus(passed);
-		*/
 	}
 
 	public static void main(String[] args) {
@@ -89,4 +105,4 @@ public class LinkedListDequeTest {
 		addIsEmptySizeTest();
 		addRemoveTest();
 	}
-} 
+}

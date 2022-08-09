@@ -18,10 +18,10 @@ public class LinkedListDeque<T> {
      * Adds an item of type T to the front of the deque.
      */
     public void addFirst(T item) {
-        TNode next_next = sentinel.next;//next to the item to be added
-        TNode to_add = new TNode(item, next_next, sentinel);
-        sentinel.next = to_add;
-        next_next.prev = to_add;
+        TNode nextnext = sentinel.next;//next to the item to be added
+        TNode toadd = new TNode(item, nextnext, sentinel);
+        sentinel.next = toadd;
+        nextnext.prev = toadd;
         size += 1;
     }
 
@@ -29,10 +29,10 @@ public class LinkedListDeque<T> {
      * Adds an item of type T to the back of the deque.
      */
     public void addLast(T item) {
-        TNode prev_prev = sentinel.prev;
-        TNode to_add = new TNode(item, sentinel, prev_prev);
-        sentinel.prev = to_add;
-        prev_prev.next = to_add;
+        TNode prevprev = sentinel.prev;
+        TNode toadd = new TNode(item, sentinel, prevprev);
+        sentinel.prev = toadd;
+        prevprev.next = toadd;
         size += 1;
     }
 
@@ -40,7 +40,7 @@ public class LinkedListDeque<T> {
      * Returns true if deque is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return size==0;
+        return size == 0;
     }
 
     /**
@@ -98,36 +98,36 @@ public class LinkedListDeque<T> {
      * If no such item exists, returns null.
      */
     public T get(int index) {
-        if(index>size){//no such item exists
+        if (index > size) {//no such item exists
             return null;
-        }
-        else{//the item must exists
-            TNode iterator=sentinel.next;
-            for (int i=0;i<index;i++){
-                iterator=iterator.next;
+        } else {//the item must exists
+            TNode iterator = sentinel.next;
+            for (int i = 0; i < index; i++) {
+                iterator = iterator.next;
             }
             return iterator.store;
         }
     }
 
-    /**Same as get, but uses recursion.*/
+    /**
+     * Same as get, but uses recursion.
+     */
     public T getRecursive(int index) {
-        if(index>size){//no such item exists
+        if (index > size) {//no such item exists
             return null;
-        }
-        else {
-            return  helpGetRecursive(index,sentinel.next);
+        } else {
+            return helpGetRecursive(index, sentinel.next);
         }
     }
 
-    /**help function getRecursive*/
-    private   T helpGetRecursive(int index,TNode present){
-        if (index==0)
-        {
-            return  present.store;
-        }
-        else{
-            return helpGetRecursive(index-1,present.next);
+    /**
+     * help function getRecursive
+     */
+    private T helpGetRecursive(int index, TNode present) {
+        if (index == 0) {
+            return present.store;
+        } else {
+            return helpGetRecursive(index - 1, present.next);
         }
     }
 
