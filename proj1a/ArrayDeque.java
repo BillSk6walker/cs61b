@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
      * Resize the array if it's full
      */
     private void checkResize() {
-        if (size == max) {
+        if (size == max - 1) {
             T[] temp = (T[]) new Object[max * 2];
             for (int i = 0; i < size; i++) {
                 headpointer += 1;
