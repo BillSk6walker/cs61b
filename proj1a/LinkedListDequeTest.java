@@ -49,6 +49,25 @@ public class LinkedListDequeTest {
         a.addLast(10);//9 5 3 2 4 6 8 10
         a.removeLast();//9 5 3 2 4 6 8
         org.junit.Assert.assertEquals(8, (long) a.removeLast());
+        ArrayDeque<Integer> b = new ArrayDeque<Integer>();
+        b.addLast(0);//0
+        b.addLast(1);//0 1
+        b.addLast(2); //0 1 2
+        b.addLast(3);//0 1 2 3
+        b.addFirst(4);//4 0 1 2 3
+        b.addLast(5);//4 0 1 2 3 5
+        b.get(5)      ;//==> 5
+        b.addLast(7);//4 0 1 2 3 5 7
+        b.addLast(8);//4 0 1 2 3 5 7 8
+        b.addLast(9);//4 0 1 2 3 5 7 8 9
+        b.addLast(10);//4 0 1 2 3 5 7 8 9 10
+        b.removeLast()      ;//==> 10
+        b.removeFirst()    ; //==> 4
+        b.removeFirst()   ;  //==> 0
+        b.removeFirst()  ;   //==> 1
+        b.removeFirst() ;    //==> 2
+        b.removeFirst();     //==> 3
+        org.junit.Assert.assertEquals(9, (long) b.removeLast());
     }
 
     /**

@@ -36,7 +36,7 @@ public class ArrayDeque<T> {
                 }
                 max /= 2;
                 headpointer = max - 1;
-                tailpointer = size + 1;
+                tailpointer = size;
                 items = temp;
             }
 
@@ -108,13 +108,14 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
+            checkResize();
             headpointer += 1;
             if (headpointer == max) {
                 headpointer = 0;
             }
             T ret = items[headpointer];
             size -= 1;
-            checkResize();
+
             return ret;
         }
     }
@@ -126,13 +127,14 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
+            checkResize();
             tailpointer -= 1;
             if (tailpointer < 0) {
                 tailpointer = max - 1;
             }
             T ret = items[tailpointer];
             size -= 1;
-            checkResize();
+
             return ret;
         }
     }
