@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
             }
             max *= 2;
             headpointer = max - 1;
-            tailpointer = size + 1;
+            tailpointer = size;
             items = temp;
         } else {
             usagefactor = (double) size / (double) max;
