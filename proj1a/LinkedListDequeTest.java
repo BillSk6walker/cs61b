@@ -48,14 +48,14 @@ public class LinkedListDequeTest {
         a.addLast(9);//3 0 4 6 9
         a.addFirst(10);//10 3 0 4 6 9
         a.addFirst(11);//11 10 3 0 4 6 9
-        a.removeLast();
-        a.removeLast();
+        a.removeLast();//11 10 3 0 4 6
+        a.removeLast();//11 10 3 0 4
         a.get(1);
-        a.removeLast();
-        a.addFirst(16);
-        a.addLast(17);
-        a.addFirst(18);
-        a.addFirst(19);
+        a.removeLast();//11 10 3 0
+        a.addFirst(16);//16 11 10 3 0
+        a.addLast(17);//16 11 10 3 0 17
+        a.addFirst(18);//18 16 11 10 3 0 17
+        a.addFirst(19);//19 18 16 11 10 3 0 17
         a.removeFirst();
         a.get(4);
         org.junit.Assert.assertEquals(17, (long) a.removeLast());

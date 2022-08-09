@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
      * Resize the array if it's full
      */
     private void checkResize() {
-        if (size == max - 1) {
+        if (size == max) {
             T[] temp = (T[]) new Object[max * 2];
             for (int i = 0; i < size; i++) {
                 headpointer += 1;
@@ -113,8 +113,8 @@ public class ArrayDeque<T> {
                 headpointer = 0;
             }
             T ret = items[headpointer];
-            checkResize();
             size -= 1;
+            checkResize();
             return ret;
         }
     }
@@ -130,9 +130,9 @@ public class ArrayDeque<T> {
             if (tailpointer < 0) {
                 tailpointer = max - 1;
             }
-            size -= 1;
             T ret = items[tailpointer];
             checkResize();
+            size -= 1;
             return ret;
         }
     }
