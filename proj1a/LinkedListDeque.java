@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
-    int size;//the number of items in the deque
-    TNode sentinel;//the sentinel node,act both as first and last node
+    private int size;//the number of items in the deque
+    private TNode sentinel;//the sentinel node,act both as first and last node
 
-    public class TNode {
+    private class TNode {
         T store;
         TNode next;//points at the next intNode
         TNode prev;//points at the previous intNode
@@ -102,7 +102,7 @@ public class LinkedListDeque<T> {
             return null;
         }
         else{//the item must exists
-            TNode iterator=sentinel;
+            TNode iterator=sentinel.next;
             for (int i=0;i<index;i++){
                 iterator=iterator.next;
             }
@@ -116,12 +116,12 @@ public class LinkedListDeque<T> {
             return null;
         }
         else {
-            return  helpGetRecursive(index,sentinel);
+            return  helpGetRecursive(index,sentinel.next);
         }
     }
 
     /**help function getRecursive*/
-    public  T helpGetRecursive(int index,TNode present){
+    private   T helpGetRecursive(int index,TNode present){
         if (index==0)
         {
             return  present.store;
