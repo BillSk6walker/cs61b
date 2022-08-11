@@ -12,10 +12,12 @@ public class TestOffByOne {
     public void testEqualChars(){
         assertTrue(offByOne.equalChars('a','b'));
         assertTrue(offByOne.equalChars('E','F'));
+        assertTrue(offByOne.equalChars('A','B'));
         assertTrue(offByOne.equalChars('b','a'));
         assertTrue(offByOne.equalChars('f','e'));
         assertTrue(offByOne.equalChars('&','%'));
         assertFalse(offByOne.equalChars('a','d'));
+        assertFalse(offByOne.equalChars('a','B'));
         assertFalse(offByOne.equalChars('a','a'));
         assertFalse(offByOne.equalChars('a','A'));
         assertFalse(offByOne.equalChars('_','-'));
