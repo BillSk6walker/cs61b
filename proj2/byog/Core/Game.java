@@ -14,6 +14,7 @@ public class Game {
     public static final int ROOMMIN = 2;
     public static final int ROOMMAX = 5;
     public static final int OUT = 40;
+    public static final int TOTAL = 7;//3 of TOTAL-1 is the tunnel
     public static long seed = 0;// the default seed,should be overwritten by the methods
     public static Random RANDOM;
     public static final int[][] DIRECTIONS = new int[][]{{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
@@ -86,7 +87,7 @@ public class Game {
      */
     public static int[] chooseSpace(int X, int Y, int direction) {
         //TODO:change this to change the chance of room size,etc.
-        int choice = RANDOM.nextInt(5);
+        int choice = RANDOM.nextInt(TOTAL);
         int[] ret = new int[5];
         ret[1] = X;//xMin
         ret[2] = X;//xMax
@@ -177,11 +178,13 @@ public class Game {
             if (tiles[i][yMin - 1] != Tileset.NOTHING || tiles[i][yMax + 1] != Tileset.NOTHING) {
                 exit_cnt++;
             }
+
         }
         for (int i = yMin; i <= yMax; i++) {
             if (tiles[xMin - 1][i] != Tileset.NOTHING || tiles[xMax + 1][i] != Tileset.NOTHING) {
                 exit_cnt++;
             }
+
         }
         if (exit_cnt > 1) {
             return false;
@@ -202,7 +205,7 @@ public class Game {
 
         // now the space can be used for building!
         if (type == 0) {//the space is a tunnel
-            TETile background = Tileset.FLOOR;
+            TETile background = Tileset.TREE;
             for (int i = xMin; i <= xMax; i++) {
                 for (int j = yMin; j <= yMax; j++) {
                     background = TETile.colorVariant(background, 20, 20, 20, RANDOM);
@@ -210,7 +213,7 @@ public class Game {
                 }
             }
         } else {//the space is a room
-            TETile background = Tileset.MOUNTAIN;
+            TETile background = Tileset.FLOWER;
             for (int i = xMin; i <= xMax; i++) {
                 for (int j = yMin; j <= yMax; j++) {
                     background = TETile.colorVariant(background, 20, 20, 20, RANDOM);
@@ -238,7 +241,7 @@ public class Game {
             int x = X;
             int y = Y;
             x += DIRECTIONS[direction][0];
-            y += DIRECTIONS[direction][0];
+            y += DIRECTIONS[direction][1];
             int[] space = chooseSpace(x, y, direction);
             if (buildSpace(tiles, space[1], space[2], space[3], space[4], space[0])) {
                 int[] togoto = findOut(space[1], space[2], space[3], space[4], direction, space[0]);
@@ -260,7 +263,7 @@ public class Game {
         int x = RANDOM.nextInt(20, WIDTH - 10);
         int y = RANDOM.nextInt(20, HEIGHT - 10);
         setContext(tiles, x, y);
-        tiles[x][y] = Tileset.FLOWER;
+        tiles[x][y] = Tileset.SAND;
     }
 
     /**
@@ -289,7 +292,7 @@ public class Game {
 
 
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
-        seed = 500;//DEBUGGING
+        seed = 50000;//DEBUGGING
         RANDOM = new Random(seed);
         generateMaze(finalWorldFrame);//generate the primitive version of the world
 
@@ -297,4 +300,5 @@ public class Game {
         ter.renderFrame(finalWorldFrame);//DEBUGGING
         return finalWorldFrame;
     }
+
 }
