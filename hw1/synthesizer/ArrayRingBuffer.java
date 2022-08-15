@@ -64,6 +64,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>{
      * Return oldest item, but don't remove it.
      */
     public T peek() {
+        if(isEmpty()){
+            throw new RuntimeException("Nothing to peak at!");
+        }
         return rb[first];
     }
     private class DequeIterator implements Iterator<T>{
