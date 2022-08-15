@@ -48,28 +48,29 @@ public class Game {
         int[] ret = new int[100];//big enough to hold
 
 
-        int out = RANDOM.nextInt(OUT);//at most OUT ways out
+
+        int out=RandomUtils.uniform(RANDOM,OUT);//at most OUT ways out
         ret[0] = out;
         for (int i = 1; i < 2 * ret[0] + 1; i += 2) {
-            int finder = RANDOM.nextInt(4);
+            int finder = RandomUtils.uniform(RANDOM,4);
             switch (finder) {
                 case 0: {
-                    ret[i] = RANDOM.nextInt(xMin, xMax + 1);
+                    ret[i] = RandomUtils.uniform(RANDOM,xMin,xMax + 1);
                     ret[i + 1] = yMax;
                     break;
                 }
                 case 1: {
-                    ret[i] = RANDOM.nextInt(xMin, xMax + 1);
+                    ret[i] = RandomUtils.uniform(RANDOM,xMin,xMax + 1);
                     ret[i + 1] = yMin;
                     break;
                 }
                 case 2: {
-                    ret[i + 1] = RANDOM.nextInt(yMin, yMax + 1);
+                    ret[i + 1] = RandomUtils.uniform(RANDOM,yMin,yMax + 1);
                     ret[i] = xMin;
                     break;
                 }
                 case 3: {
-                    ret[i + 1] = RANDOM.nextInt(yMin, yMax + 1);
+                    ret[i + 1] = RandomUtils.uniform(RANDOM,yMin,yMax + 1);
                     ret[i] = xMax;
                     break;
                 }
@@ -87,7 +88,7 @@ public class Game {
      */
     public static int[] chooseSpace(int X, int Y, int direction) {
         //TODO:change this to change the chance of room size,etc.
-        int choice = RANDOM.nextInt(TOTAL);
+        int choice = RandomUtils.uniform(RANDOM,TOTAL);;
         int[] ret = new int[5];
         ret[1] = X;//xMin
         ret[2] = X;//xMax
@@ -95,7 +96,7 @@ public class Game {
         ret[4] = Y;//yMax
         if (choice < 3) {//tunnel
             ret[0] = 0;
-            choice = RANDOM.nextInt(2, 8);//the length of the tunnel
+            choice = RandomUtils.uniform(RANDOM,2,8);//the length of the tunnel
             switch (direction) {
                 case 0: {//up
                     ret[4] += choice;
@@ -116,15 +117,15 @@ public class Game {
             }
         } else {//room
             ret[0] = 1;
-            int width = RANDOM.nextInt(ROOMMIN, ROOMMAX);//the width of the room
-            int height = RANDOM.nextInt(ROOMMIN, ROOMMAX);//the height of the room
+            int width = RandomUtils.uniform(RANDOM,ROOMMIN,ROOMMAX);;//the width of the room
+            int height = RandomUtils.uniform(RANDOM,ROOMMIN,ROOMMAX);//the height of the room
             int maxOffset;
             if (direction == 0 || direction == 1) {//up or down
                 maxOffset = width;
             } else {//right or left
                 maxOffset = height;
             }
-            int offset = RANDOM.nextInt(0, maxOffset);
+            int offset = RandomUtils.uniform(RANDOM,maxOffset);;
             switch (direction) {
                 case 0: {//up
                     ret[4] += height;
@@ -209,7 +210,7 @@ public class Game {
 
         // now the space can be used for building!
         if (type == 0) {//the space is a tunnel
-            int dice =RANDOM.nextInt(2);
+            int dice =RandomUtils.uniform(RANDOM,2);;
             TETile background = Tileset.FLOOR;
             if (dice==0) background = Tileset.WATER;
             for (int i = xMin; i <= xMax; i++) {
@@ -219,7 +220,7 @@ public class Game {
                 }
             }
         } else {//the space is a room
-            int dice =RANDOM.nextInt(2);
+            int dice =RandomUtils.uniform(RANDOM,2);;
             TETile background = Tileset.MOUNTAIN;
             if (dice==0) background = Tileset.SAND;
             for (int i = xMin; i <= xMax; i++) {
@@ -241,9 +242,9 @@ public class Game {
     public void setContext(TETile[][] tiles, int X, int Y) {
         int[] direction_used = {0, 0, 0, 0};
         for (int i = 0; i < 4; i++) {
-            int direction = RANDOM.nextInt(4);
+            int direction = RandomUtils.uniform(RANDOM,4);;
             while (direction_used[direction] == 1) {
-                direction = RANDOM.nextInt(4);
+                direction = RandomUtils.uniform(RANDOM,4);;
             }
             direction_used[direction] = 1;
             int x = X;
