@@ -326,12 +326,11 @@ public class Game {
 
 
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
-        seed = Long.parseLong(input);//DEBUGGING
+        seed = Long.parseLong(input.substring(1,input.length()-1));
         RANDOM = new Random(seed);
         generateMaze(finalWorldFrame);//generate the primitive version of the world
-
-        ter.initialize(WIDTH, HEIGHT);//DEBUGGING
-        ter.renderFrame(finalWorldFrame);//DEBUGGING
+        //ter.initialize(WIDTH, HEIGHT);//DEBUGGING
+        //ter.renderFrame(finalWorldFrame);//DEBUGGING
         return finalWorldFrame;
     }
 
