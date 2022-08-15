@@ -175,18 +175,22 @@ public class Game {
         }
         int exit_cnt = 0;
         for (int i = xMin; i <= xMax; i++) {
-            if (tiles[i][yMin - 1] != Tileset.NOTHING || tiles[i][yMax + 1] != Tileset.NOTHING) {
-                exit_cnt++;
+            for(int j=1;j<=4;j++) {
+                if (tiles[i][yMin - j] != Tileset.NOTHING || tiles[i][yMax + j] != Tileset.NOTHING) {
+                    exit_cnt++;
+                }
             }
-
         }
         for (int i = yMin; i <= yMax; i++) {
-            if (tiles[xMin - 1][i] != Tileset.NOTHING || tiles[xMax + 1][i] != Tileset.NOTHING) {
-                exit_cnt++;
+            for(int j=1;j<4;j++) {
+                if (tiles[xMin - j][i] != Tileset.NOTHING || tiles[xMax +j][i] != Tileset.NOTHING) {
+                    exit_cnt++;
+                }
             }
 
+
         }
-        if (exit_cnt > 1) {
+        if (exit_cnt > 3) {
             return false;
         }
         exit_cnt = 0;
@@ -201,22 +205,26 @@ public class Game {
         if (exit_cnt > 1) {
             return false;
         }
-        //TODO:the surrounding of the space has to be either NOTHING or WALL? need to be thought of later
+
 
         // now the space can be used for building!
         if (type == 0) {//the space is a tunnel
-            TETile background = Tileset.TREE;
+            int dice =RANDOM.nextInt(2);
+            TETile background = Tileset.FLOOR;
+            if (dice==0) background = Tileset.WATER;
             for (int i = xMin; i <= xMax; i++) {
                 for (int j = yMin; j <= yMax; j++) {
-                    background = TETile.colorVariant(background, 20, 20, 20, RANDOM);
-                    tiles[i][j] = background;//TODO:Make more choices later!
+                    background = TETile.colorVariant(background, 150, 150, 50, RANDOM);
+                    tiles[i][j] = background;//TODO:MORE TUNNELS LATER
                 }
             }
         } else {//the space is a room
-            TETile background = Tileset.FLOWER;
+            int dice =RANDOM.nextInt(2);
+            TETile background = Tileset.MOUNTAIN;
+            if (dice==0) background = Tileset.SAND;
             for (int i = xMin; i <= xMax; i++) {
                 for (int j = yMin; j <= yMax; j++) {
-                    background = TETile.colorVariant(background, 20, 20, 20, RANDOM);
+                    background = TETile.colorVariant(background, 50, 50, 50, RANDOM);
                     tiles[i][j] = background;//TODO:Make more choices later!
                 }
             }
@@ -250,20 +258,46 @@ public class Game {
                 }
             }
         }
-
-
     }
 
+    /**
+     * check whether there is context around it
+     */
+    public boolean checkWall(int X,int Y,TETile[][] tiles){
+        int[][] dir ={{0,1},{0,-1},{1,0},{-1,0},{1,1},{1,-1},{-1,1},{-1,-1}};
+        for(int i=0;i<8;i++){
+            if (tiles[X+dir[i][0]][Y+dir[i][1]] != Tileset.NOTHING &&tiles[X+dir[i][0]][Y+dir[i][1]] != Tileset.NEWWALL){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * build the wall around the tunnels and the rooms
+     */
+    public void buildWall(TETile[][] tiles){
+        //TODO: change the wall context later
+        for(int i=1;i<WIDTH-1;i++){
+            for (int j=1;j<HEIGHT-1;j++){
+                if (tiles[i][j] == Tileset.NOTHING){
+                    if(checkWall(i,j,tiles)){
+                        tiles[i][j] = Tileset.NEWWALL;
+                    }
+                }
+            }
+        }
+    }
     /**
      * generate the maze with the seed
      */
     public void generateMaze(TETile[][] tiles) {
-
         setToNothing(tiles);//initialize the tile
         int x = RANDOM.nextInt(20, WIDTH - 10);
         int y = RANDOM.nextInt(20, HEIGHT - 10);
         setContext(tiles, x, y);
         tiles[x][y] = Tileset.SAND;
+        buildWall(tiles);
     }
 
     /**
@@ -292,7 +326,7 @@ public class Game {
 
 
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
-        seed = 50000;//DEBUGGING
+        seed = Long.parseLong(input);//DEBUGGING
         RANDOM = new Random(seed);
         generateMaze(finalWorldFrame);//generate the primitive version of the world
 
