@@ -294,8 +294,8 @@ public class Game {
      */
     public void generateMaze(TETile[][] tiles) {
         setToNothing(tiles);//initialize the tile
-        int x = RANDOM.nextInt(20, WIDTH - 10);
-        int y = RANDOM.nextInt(20, HEIGHT - 10);
+        int x = RandomUtils.uniform(RANDOM,20,WIDTH-10);;
+        int y = RandomUtils.uniform(RANDOM,20,HEIGHT-10);;
         setContext(tiles, x, y);
         tiles[x][y] = Tileset.SAND;
         buildWall(tiles);
